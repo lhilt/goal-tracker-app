@@ -1,0 +1,32 @@
+$bg-gray: #f7f7f7;
+$text-black: #2e2e2d;
+$gold: #d49a00;
+$coral: #f3835c;
+
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: darken($bg-gray, 10%);
+  height: 100px;
+  padding: 0 16px;
+}
+
+.logo {
+  display: inline-block;
+  font-size: 28px;
+  color: $coral;
+}
+
+.nav-item {
+  font-size: 18px;
+  padding: 4px 0;
+  margin: 0 12px;
+  text-decoration: none;
+  color: $text-black;
+  border-bottom: 2px solid transparent;
+  &:hover {
+    color: $gold;
+    border-bottom: 2px solid $gold;
+  }
+}

@@ -1,0 +1,13 @@
+$bg-gray: #f7f7f7;
+$text-black: #2e2e2d;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Raleway", sans-serif;
+  color: $text-black;
+  background-color: $bg-gray;
+}
