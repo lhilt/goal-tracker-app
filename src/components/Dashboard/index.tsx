@@ -1,38 +1,32 @@
-import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import Goals from './Goals';
 import './Dashboard.scss';
 
 interface Props {
   username: string;
+  history: any;
+  location: any;
+  match: any;
 }
 
-interface State {
-  goalType: string;
+const Dashboard: React.FC<Props> = ({ username }) => {
+  const [ goalType ] = useState('daily');
+  return (
+    <div className="dashboard">
+      <h1 className="welcome">
+        {`Welcome${username.length > 0 ? `, ${username}!` : "!"}`}
+      </h1>
+      <Switch>
+        <Route
+          path={`/:goalType`}
+          render={() => (
+            <Goals goalType={goalType} />
+          )}
+        />
+      </Switch>
+    </div>
+  );
 }
 
-class Dashboard extends Component<Props, State> {
-  state = {
-    goalType: 'daily',
-  }
-
-  render() {
-    const { username } = this.props;
-    const { goalType } = this.state;
-    return (
-      <div className="dashboard">
-        <h1 className="welcome">{`Welcome${username.length > 0 ? `, ${username}!` : "!"}`}</h1>
-        <Switch>
-          <Route
-            path={`/${goalType}`}
-            render={() => (
-              <Goals goalType={goalType} />
-            )}
-          />
-        </Switch>
-      </div>
-    )
-  }
-}
-
-export default Dashboard;
+export default withRouter(Dashboard);

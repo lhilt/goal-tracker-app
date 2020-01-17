@@ -7,8 +7,8 @@ const Navbar: React.FC = () => (
       MyGoals
     </div>
     <div className="nav-items">
-      <a href="#" className="nav-item">Profile</a>
-      <a href="#" className="nav-item">Logout</a>
+      <a href="#p" className="nav-item">Profile</a>
+      <a href="#p" className="nav-item">Logout</a>
     </div>
   </div>
 );
