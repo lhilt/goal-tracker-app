@@ -1,3 +1,25 @@
+$text-black: #2e2e2d;
+$coral: #f3835c;
+$teal: #30b7a9;
+
 .dashboard {
   padding: 12px;
+}
+
+.goal-types-list {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+  padding: 8px;
+  li {
+    list-style: none;
+    color: $text-black;
+    a {
+      text-decoration: none;
+      color: $text-black;
+      &.active {
+        color: $teal;
+      }
+    }
+  }
 }
