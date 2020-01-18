@@ -1,12 +1,13 @@
 import uuid from 'uuid';
 
-export function addGoal(goal: any) {
+export function addGoal(text: string, goalType: string) {
   return {
     id: uuid(),
     type: 'ADD_GOAL',
-    item: {
-      goal: goal,
+    goal: {
       completed: false,
+      text,
+      goalType,
     }
   }
 }
