@@ -1,6 +1,7 @@
 import React from 'react';
-import { Switch, Route, NavLink } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Goals from './Goals';
+import GoalTypeOptions from './GoalTypeOptions';
 import './Dashboard.scss';
 
 interface Props {
@@ -13,17 +14,7 @@ const Dashboard: React.FC<Props> = ({ username }) => {
       <h1 className="welcome">
         {`Welcome${username.length > 0 ? `, ${username}!` : "!"}`}
       </h1>
-      <ul className="goal-types-list">
-        <li className="goal-type-selector">
-            <NavLink to="/daily">Daily</NavLink>
-        </li>
-        <li className="goal-type-selector">
-          <NavLink to="/weekly">Weekly</NavLink>
-        </li>
-        <li className="goal-type-selector">
-          <NavLink to="/monthly">Monthly</NavLink>
-        </li>
-      </ul>
+      <GoalTypeOptions />
       <Switch>
         <Route
           path={`/:goalType`}
