@@ -9,7 +9,8 @@ $teal: #30b7a9;
 .goal-types-list {
   display: flex;
   justify-content: space-around;
-  margin-top: 15px;
+  max-width: 800px;
+  margin: 15px auto 0;
   padding: 8px;
   li {
     list-style: none;

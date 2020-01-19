@@ -1,0 +1,14 @@
+.goal {
+  display: flex;
+  align-items: center;
+  padding: 10px 30px;
+}
+
+.checkbox {
+  height: 30px;
+  width: 30px;
+  background-color: lighten(#2e2e2d, 60%);
+  border-radius: 4px;
+  margin-right: 16px;
+  padding: 0;
+}

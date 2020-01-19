@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Goal from './Goal';
 import './Goals.scss';
 
 interface Props {
@@ -17,7 +18,7 @@ const Goals: React.FC<Props> = (props) => {
       <h2>{`your ${goalType} goals`}</h2>
       <div className="goal-list">
         {props.goals.map((goal: any) => (
-          <p>{goal.text}</p>
+          <Goal key={goal.id} text={goal.text} />
         ))}
       </div>
     </div>
