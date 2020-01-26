@@ -1,8 +1,10 @@
 import React from 'react';
+import { Dispatch as ReduxDispatch } from 'redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Goal from './Goal';
 import { TGoal, ReduxState } from '../../../types';
+import { addGoal, TGoalAction } from '../../../actions';
 import './Goals.scss';
 
 interface StoreProps {
@@ -11,13 +13,21 @@ interface StoreProps {
 
 type TParams = { goalType: string };
 type RouterProps = RouteComponentProps<TParams>;
-type TProps = StoreProps & RouterProps;
+type Props = StoreProps & RouterProps;
 
-const Goals: React.FC<TProps> = (props) => {
+type Dispatch = ReduxDispatch<TGoalAction>;
+interface DispatchProps {
+  onSubmit: (text: string) => void;
+}
+
+const Goals: React.FC<Props> = (props) => {
   const { goalType } = props.match.params;
   return (
     <div className="goal-category">
-      <h2>{`your ${goalType} goals`}</h2>
+      <div className="goals-header">
+        <h2>{`your ${goalType} goals`}</h2>
+        <div className="add-goal-btn">+ add a goal</div>
+      </div>
       <div className="goal-list">
         {props.goals.map((goal: TGoal) => (
           <Goal key={goal.id} goalId={goal.id} />
@@ -36,6 +46,16 @@ const mapStateToProps = (state: ReduxState, ownProps: RouterProps) => {
   });
 };
 
+const mapDispatchToProps = (dispatch: Dispatch, ownProps: RouterProps) => {
+  const { goalType } = ownProps.match.params;
+  return ({
+    onSubmit: (text: string) => dispatch(addGoal(text, goalType))
+  });
+};
+
 export default withRouter(
-  connect<StoreProps, {}, RouterProps, ReduxState>(mapStateToProps)(Goals)
+  connect<StoreProps, DispatchProps, RouterProps, ReduxState>(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Goals)
 );

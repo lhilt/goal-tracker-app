@@ -24,7 +24,7 @@ const mapStateToProps = (state: ReduxState, ownProps: OwnProps) => {
   return ({
     goal: state.goals[ownProps.goalId]
   });
-}
+};
 
 export default
   connect<StoreProps, {}, OwnProps, ReduxState>(mapStateToProps)(Goal);

@@ -7,3 +7,18 @@ $coral: #f3835c;
   border: 10px solid $coral;
   border-radius: 10px;
 }
+
+.goals-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-goal-btn {
+  padding: 4px;
+  border: 1px solid black;
+  border-radius: 4px;
+  &:hover {
+    background: $coral;
+  }
+}
