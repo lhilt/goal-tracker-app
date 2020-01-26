@@ -1,31 +1,33 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Goal from './Goal';
+import { TGoal, ReduxState } from '../../../types';
 import './Goals.scss';
 
-interface Props {
-  goals: any;
-  match: any;
-  history: any;
-  location: any;
+interface StoreProps {
+  goals: TGoal[];
 }
 
-const Goals: React.FC<Props> = (props) => {
+type TParams = { goalType: string };
+type RouterProps = RouteComponentProps<TParams>;
+type TProps = StoreProps & RouterProps;
+
+const Goals: React.FC<TProps> = (props) => {
   const { goalType } = props.match.params;
   return (
     <div className="goal-category">
       <h2>{`your ${goalType} goals`}</h2>
       <div className="goal-list">
-        {props.goals.map((goal: any) => (
-          <Goal key={goal.id} text={goal.text} />
+        {props.goals.map((goal: TGoal) => (
+          <Goal key={goal.id} goalId={goal.id} />
         ))}
       </div>
     </div>
   );
 };
 
-const mapStateToProps = (state: any, ownProps: any) => {
+const mapStateToProps = (state: ReduxState, ownProps: RouterProps) => {
   const { goalType } = ownProps.match.params;
   return ({
     goals: Object.values(state.goals).filter(
@@ -34,4 +36,6 @@ const mapStateToProps = (state: any, ownProps: any) => {
   });
 };
 
-export default withRouter(connect(mapStateToProps)(Goals));
+export default withRouter(
+  connect<StoreProps, {}, RouterProps, ReduxState>(mapStateToProps)(Goals)
+);

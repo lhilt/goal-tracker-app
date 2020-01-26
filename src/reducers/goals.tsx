@@ -1,10 +1,10 @@
 import { ADD_GOAL } from '../actions';
 
 const defaultState = {
-  0: {
-    id: 0,
+  '0': {
+    id: '0',
     text: 'test',
-    completed: false,
+    completed: true,
     goalType: 'monthly',
   }
 };
