@@ -3,12 +3,12 @@ import { Dispatch as ReduxDispatch } from 'redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Goal from './Goal';
-import { TGoal, ReduxState } from '../../../types';
+import { ReduxState } from '../../../types';
 import { addGoal, TGoalAction } from '../../../actions';
 import './Goals.scss';
 
 interface StoreProps {
-  goals: TGoal[];
+  goalIds: string[];
 }
 
 type TParams = { goalType: string };
@@ -29,8 +29,8 @@ const Goals: React.FC<Props> = (props) => {
         <div className="add-goal-btn">+ add a goal</div>
       </div>
       <div className="goal-list">
-        {props.goals.map((goal: TGoal) => (
-          <Goal key={goal.id} goalId={goal.id} />
+        {props.goalIds.map((goalId: string) => (
+          <Goal key={goalId} goalId={goalId} />
         ))}
       </div>
     </div>
@@ -40,9 +40,9 @@ const Goals: React.FC<Props> = (props) => {
 const mapStateToProps = (state: ReduxState, ownProps: RouterProps) => {
   const { goalType } = ownProps.match.params;
   return ({
-    goals: Object.values(state.goals).filter(
+    goalIds: Object.values(state.goals).filter(
       (goal: any) => goal.goalType === goalType
-    )
+    ).map(goal => goal.id)
   });
 };
 
@@ -53,9 +53,23 @@ const mapDispatchToProps = (dispatch: Dispatch, ownProps: RouterProps) => {
   });
 };
 
+const areStatePropsEqual = (next: StoreProps, prev: StoreProps) => {
+  if (next.goalIds.length !== prev.goalIds.length) {
+    return false;
+  }
+  for (let i = 0; i < next.goalIds.length; i++) {
+    if (next.goalIds[i] !== prev.goalIds[i]) {
+      return false;
+    }
+  }
+  return true;
+};
+
 export default withRouter(
   connect<StoreProps, DispatchProps, RouterProps, ReduxState>(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
+    null,
+    { areStatePropsEqual }
   )(Goals)
 );
