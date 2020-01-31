@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dispatch as ReduxDispatch } from 'redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -13,25 +13,51 @@ interface StoreProps {
 
 type TParams = { goalType: string };
 type RouterProps = RouteComponentProps<TParams>;
-type Props = StoreProps & RouterProps;
 
 type Dispatch = ReduxDispatch<TGoalAction>;
 interface DispatchProps {
   onSubmit: (text: string) => void;
 }
 
+type Props = StoreProps & RouterProps & DispatchProps;
+
 const Goals: React.FC<Props> = (props) => {
   const { goalType } = props.match.params;
+  const [newGoalText, handleChange] = useState('');
+  const [showForm, toggleForm] = useState(false);
   return (
     <div className="goal-category">
       <div className="goals-header">
         <h2>{`your ${goalType} goals`}</h2>
-        <div className="add-goal-btn">+ add a goal</div>
+        <div
+          className="add-goal-btn"
+          onClick={() => toggleForm(true)}
+        >
+          + add a goal
+        </div>
       </div>
       <div className="goal-list">
         {props.goalIds.map((goalId: string) => (
           <Goal key={goalId} goalId={goalId} />
         ))}
+        {showForm
+          ?
+          <form onSubmit={(e: any) => {
+            e.preventDefault();
+            props.onSubmit(newGoalText);
+            toggleForm(false);
+            handleChange('');
+          }}>
+            <input
+              className="add-goal-form"
+              autoFocus
+              onChange={(e: any) => handleChange(e.target.value)}
+              value={newGoalText}
+            />
+          </form>
+          :
+          null
+        }
       </div>
     </div>
   );
