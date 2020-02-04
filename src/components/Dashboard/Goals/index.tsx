@@ -25,6 +25,14 @@ const Goals: React.FC<Props> = (props) => {
   const { goalType } = props.match.params;
   const [newGoalText, handleChange] = useState('');
   const [showForm, toggleForm] = useState(false);
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    props.onSubmit(newGoalText);
+    toggleForm(false);
+    handleChange('');
+  };
+
   return (
     <div className="goal-category">
       <div className="goals-header">
@@ -42,12 +50,7 @@ const Goals: React.FC<Props> = (props) => {
         ))}
         {showForm
           ?
-          <form onSubmit={(e: any) => {
-            e.preventDefault();
-            props.onSubmit(newGoalText);
-            toggleForm(false);
-            handleChange('');
-          }}>
+          <form onSubmit={handleSubmit}>
             <input
               className="add-goal-form"
               autoFocus

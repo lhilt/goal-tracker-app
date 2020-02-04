@@ -21,10 +21,15 @@ interface DispatchProps {
 type Props = StoreProps & DispatchProps;
 
 const Goal: React.FC<Props> = ({ goal, onClick }) => {
+  const checkmark = goal.completed ? 'X' : '';
+  const checkedClass = goal.completed ? 'completed' : '';
+
   return (
     <div className="goal">
-      <div className="checkbox" onClick={onClick}>{goal.completed ? 'X' : ''}</div>
-      <div className="goal-text">{goal.text}</div>
+      <div className="checkbox" onClick={onClick}>
+        {checkmark}
+      </div>
+      <div className={`goal-text ${checkedClass}`}>{goal.text}</div>
     </div>
   );
 }
