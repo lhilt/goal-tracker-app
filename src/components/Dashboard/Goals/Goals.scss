@@ -21,6 +21,7 @@ $highlight-gray: darken($bg-gray, 10%);
   border: 1px solid black;
   border-radius: 4px;
   &:hover {
+    cursor: pointer;
     background: $coral;
   }
 }

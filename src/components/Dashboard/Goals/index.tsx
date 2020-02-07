@@ -3,6 +3,7 @@ import { Dispatch as ReduxDispatch } from 'redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Goal from './Goal';
+import VisibilityOptions from './VisibilityOptions';
 import { ReduxState } from '../../../types';
 import { addGoal, TGoalAction } from '../../../actions';
 import './Goals.scss';
@@ -61,6 +62,7 @@ const Goals: React.FC<Props> = (props) => {
           :
           null
         }
+        <VisibilityOptions />
       </div>
     </div>
   );
@@ -68,9 +70,16 @@ const Goals: React.FC<Props> = (props) => {
 
 const mapStateToProps = (state: ReduxState, ownProps: RouterProps) => {
   const { goalType } = ownProps.match.params;
+  const { showCompleted } = state.visibility;
   return ({
     goalIds: Object.values(state.goals).filter(
-      (goal: any) => goal.goalType === goalType
+      (goal: any) => {
+        if (showCompleted) {
+          return goal.goalType === goalType;
+        } else {
+          return goal.goalType === goalType && !goal.completed;
+        }
+      }
     ).map(goal => goal.id)
   });
 };

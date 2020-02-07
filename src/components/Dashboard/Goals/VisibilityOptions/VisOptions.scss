@@ -1,0 +1,19 @@
+.visibility-options {
+  display: flex;
+  font-size: 0.75em;
+  text-transform: lowercase;
+  justify-content: flex-end;
+  margin-top: 10px;
+  color: #999;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.small-checkbox {
+  height: 15px;
+  width: 15px;
+  background-color: #c7c7c6;
+  border-radius: 4px;
+  margin-right: 6px;
+}
